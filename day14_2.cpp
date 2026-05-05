@@ -1,22 +1,27 @@
 #include<iostream>
 #include<vector>
+#include<map>
 class solution{
 public:
     std::vector<int> findErrorNums(std::vector<int>& nums) {
-        std::vector<int>rightRangeNums;
-        int preNum =0;
-        int rightNextNum = 0;
-        for(std::vector<int>::iterator it =nums.begin();it!=nums.end();it++){
-            if(preNum!=*it -1){
-            int rightNextNum = preNum+1;
-            *it =rightNextNum;
-            rightRangeNums.push_back(preNum);
-            rightRangeNums.push_back(*it);
-            }
-            preNum = *it;
-
+        int length = nums.size();
+        std::map<int,int>freq;
+        for(int x:nums)freq[x]++;
+        int dup = 0; 
+        int miss = 0;
+        for(int i =1;i<=length;i++){
+            if(freq[i]==2)dup =i;
+            if(freq[i]==0)miss = i;
         }
-        return rightRangeNums;
+        return {dup,miss};
+       
+        /*完整版：for(int i =0;x<nums.size();i++){
+            int x = nums[i];
+            freq[x]++;
+        
+        }*/
+
+    
     }
 };
 int main(){
